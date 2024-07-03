@@ -28,6 +28,6 @@ jobs:
   deploy:
     needs: qa
     runs-on: ubuntu-latest
-      steps:
-        - name: despliegue
-          run: echo "despliegue"
+    steps:
+      - name: despliegue
+        run: echo "despliegue"
