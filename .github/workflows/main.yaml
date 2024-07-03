@@ -6,43 +6,46 @@ jobs:
   build:
     runs-on: self-hosted
     steps:
-      - name: descargar repostorio
+      - name: Descargar repositorio
         uses: actions/checkout@v3
-      - name: pruebas-unitarias
+
+      - name: Pruebas unitarias
         run: mvn test
-      - name: compilar la aplicación sin repetir pruebas
+
+      - name: Compilar la aplicación sin repetir pruebas
         run: mvn package -DskipTests=true
 
   test:
     needs: build
     runs-on: self-hosted
     steps:
-      - name: instalar aplicación en Tomcat
+      - name: Instalar aplicación en Tomcat
         run: cp -r target/Baloncesto /usr/local/tomcat/webapps
-      - name: preparar base de datos de prueba
+
+      - name: Preparar base de datos de prueba
         run: |
-        mysql -u root < db/baloncesto.sql
-        export DATABASE_HOST="jdbc:mysql://localhost"
-        export DATABASE_PORT="3306"
-        export DATABASE_NAME="baloncesto"
-        export DATABASE_USER="usuario"
-        export DATABASE_PASS="clave"
-        sh /usr/local/tomcat/bin/catalina.sh stop
-        sh /usr/local/tomcat/bin/catalina.sh start
-      - name: realizar pruebas funcionales
-        run: |
-        mvn failsafe:integration-test failsafe:verify
+          mysql -u root < db/baloncesto.sql
+          export DATABASE_HOST="jdbc:mysql://localhost"
+          export DATABASE_PORT="3306"
+          export DATABASE_NAME="baloncesto"
+          export DATABASE_USER="usuario"
+          export DATABASE_PASS="clave"
+          sh /usr/local/tomcat/bin/catalina.sh stop
+          sh /usr/local/tomcat/bin/catalina.sh start
+
+      - name: Realizar pruebas funcionales
+        run: mvn failsafe:integration-test failsafe:verify
 
   qa:
     needs: test
     runs-on: self-hosted
     steps:
-      - name: calidad-codigo
+      - name: Calidad del código
         run: echo "calidad-codigo"
 
   deploy:
     needs: qa
     runs-on: ubuntu-latest
     steps:
-      - name: despliegue
+      - name: Despliegue
         run: echo "despliegue"
