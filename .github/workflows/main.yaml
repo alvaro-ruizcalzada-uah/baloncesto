@@ -18,8 +18,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: instalar aplicación en Tomcat
-        run: |
-          cp -r target/Baloncesto /usr/local/tomcat/webapps
+        run: cp -r target/Baloncesto /usr/local/tomcat/webapps
       - name: preparar base de datos de prueba
         run: |
         mysql -u root < db/baloncesto.sql
