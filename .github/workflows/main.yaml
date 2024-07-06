@@ -43,7 +43,7 @@ jobs:
     steps:
       - name: Calidad del código
         run: |
-        mvn sonar:sonar -Dsonar.host.url=http://sonarqube:9000 -Dsonar.qualitygate.wait=true -Dsonar.login=admin -Dsonar.password=admin123
+          mvn sonar:sonar -Dsonar.host.url=http://sonarqube:9000 -Dsonar.qualitygate.wait=true -Dsonar.login=admin -Dsonar.password=admin123
 
   deploy:
     needs: qa
