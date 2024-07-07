@@ -8,7 +8,7 @@
     </head>
     <body class="resultado">
         <h2>Lista de Jugadores</h2>
-        <table>
+        <table id="tablaVotos">
             <thead>
                 <tr>
                     <th>Id</th>
