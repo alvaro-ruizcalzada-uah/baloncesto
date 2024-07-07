@@ -33,7 +33,7 @@ public class Acb extends HttpServlet {
             bd.insertarJugador(nombre);
         }
         s.setAttribute("nombreCliente", nombreP);
-        res.sendRedirect(res.encodeRedirectURL("TablaVotos.jsp"));
+        res.sendRedirect(res.encodeRedirectURL("VerVotos.jsp"));
     }
 
     private void mostrarVotos(HttpServletRequest req, HttpServletResponse res) throws IOException {
