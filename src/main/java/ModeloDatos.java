@@ -1,6 +1,16 @@
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import model.Jugador;
 
 public class ModeloDatos {
+
+    private static final Logger logger = LoggerFactory.getLogger(ModeloDatos.class);
+    private static final String ERROR_MSG = "El error es: {}";
 
     private Connection con;
     private Statement set;
@@ -22,9 +32,8 @@ public class ModeloDatos {
             con = DriverManager.getConnection(url, dbUser, dbPass);
 
         } catch (Exception e) {
-            // No se ha conectado
-            System.out.println("No se ha podido conectar");
-            System.out.println("El error es: " + e.getMessage());
+            logger.error("No se ha podido conectar");
+            logger.error(ERROR_MSG, e.getMessage());
         }
     }
 
@@ -33,7 +42,7 @@ public class ModeloDatos {
         String cad;
         try {
             set = con.createStatement();
-            rs = set.executeQuery("SELECT * FROM Jugadores");
+            rs = set.executeQuery("SELECT id, Nombre FROM Jugadores");
             while (rs.next()) {
                 cad = rs.getString("Nombre");
                 cad = cad.trim();
@@ -44,9 +53,8 @@ public class ModeloDatos {
             rs.close();
             set.close();
         } catch (Exception e) {
-            // No lee de la tabla
-            System.out.println("No lee de la tabla");
-            System.out.println("El error es: " + e.getMessage());
+            logger.error("No lee de la tabla");
+            logger.error(ERROR_MSG, e.getMessage());
         }
         return (existe);
     }
@@ -58,9 +66,8 @@ public class ModeloDatos {
             rs.close();
             set.close();
         } catch (Exception e) {
-            // No modifica la tabla
-            System.out.println("No modifica la tabla");
-            System.out.println("El error es: " + e.getMessage());
+            logger.error("No modifica la tabla");
+            logger.error(ERROR_MSG, e.getMessage());
         }
     }
 
@@ -71,9 +78,8 @@ public class ModeloDatos {
             rs.close();
             set.close();
         } catch (Exception e) {
-            // No inserta en la tabla
-            System.out.println("No inserta en la tabla");
-            System.out.println("El error es: " + e.getMessage());
+            logger.error("No inserta en la tabla");
+            logger.error(ERROR_MSG, e.getMessage());
         }
     }
 
@@ -84,17 +90,38 @@ public class ModeloDatos {
             rs.close();
             set.close();
         } catch (Exception e) {
-            // No modifica la tabla
-            System.out.println("No modifica la tabla");
-            System.out.println("El error es: " + e.getMessage());
+            logger.error("No modifica la tabla");
+            logger.error(ERROR_MSG, e.getMessage());
         }
     }
+
+    public List<Jugador> obtenerTodosLosJugadores() {
+        List<Jugador> jugadores = new ArrayList<>();
+        try {
+            set = con.createStatement();
+            rs = set.executeQuery("SELECT id, Nombre, Votos FROM Jugadores");
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nombre = rs.getString("Nombre");
+                int votos = rs.getInt("Votos");
+
+                Jugador jugador = new Jugador(id, nombre, votos);
+                jugadores.add(jugador);
+            }
+            rs.close();
+            set.close();
+        } catch (SQLException e) {
+            logger.error("Error al ejecutar la consulta SQL", e);
+        }
+        return jugadores;
+    }
+
 
     public void cerrarConexion() {
         try {
             con.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
         }
     }
 

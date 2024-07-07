@@ -1,12 +1,17 @@
 
 import java.io.*;
+import java.util.List;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
+
+import model.Jugador;
 
 public class Acb extends HttpServlet {
 
     private ModeloDatos bd;
 
+    @Override
     public void init(ServletConfig cfg) throws ServletException {
         bd = new ModeloDatos();
         bd.abrirConexion();
@@ -33,15 +38,29 @@ public class Acb extends HttpServlet {
         res.sendRedirect(res.encodeRedirectURL("TablaVotos.jsp"));
     }
 
+    private void mostrarVotos(HttpServletRequest req, HttpServletResponse res) throws IOException {
+        HttpSession s = req.getSession(true);
+        List<Jugador> jugadores = bd.obtenerTodosLosJugadores();
+        s.setAttribute("jugadores", jugadores);
+        res.sendRedirect(res.encodeRedirectURL("VerVotos.jsp"));
+    }
+
+    @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        String resetear = req.getParameter("B3");
-        if (resetear != null && resetear.equals("Poner votos a cero")) {
-            reiniciarVotacion(res);
-        } else {
-            votar(req, res);
+        String accion = req.getParameter("B1");
+        switch(accion) {
+            case "Poner votos a cero": 
+                reiniciarVotacion(res);
+                break;
+            case "Ver votos":
+                mostrarVotos(req, res);
+                break;
+            default:
+                votar(req, res);
         }
     }
 
+    @Override
     public void destroy() {
         bd.cerrarConexion();
         super.destroy();
