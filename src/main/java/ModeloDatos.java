@@ -5,6 +5,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import model.Jugador;
+
 public class ModeloDatos {
 
     private static final Logger logger = LoggerFactory.getLogger(ModeloDatos.class);

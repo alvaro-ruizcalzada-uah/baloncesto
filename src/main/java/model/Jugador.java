@@ -1,4 +1,10 @@
-public class Jugador {
+package model;
+
+import java.io.Serializable;
+
+public class Jugador implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     private int id;
     private String nombre;
     private int votos;

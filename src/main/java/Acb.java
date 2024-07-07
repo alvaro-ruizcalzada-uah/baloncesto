@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import model.Jugador;
+
 public class Acb extends HttpServlet {
 
     private ModeloDatos bd;
@@ -45,8 +47,8 @@ public class Acb extends HttpServlet {
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        String acción = req.getParameter("B1");
-        switch(acción) {
+        String accion = req.getParameter("B1");
+        switch(accion) {
             case "Poner votos a cero": 
                 reiniciarVotacion(res);
                 break;
