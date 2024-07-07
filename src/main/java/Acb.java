@@ -1,5 +1,6 @@
 
 import java.io.*;
+import java.util.List;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -35,13 +36,25 @@ public class Acb extends HttpServlet {
         res.sendRedirect(res.encodeRedirectURL("TablaVotos.jsp"));
     }
 
+    private void mostrarVotos(HttpServletRequest req, HttpServletResponse res) throws IOException {
+        HttpSession s = req.getSession(true);
+        List<Jugador> jugadores = bd.obtenerTodosLosJugadores();
+        s.setAttribute("jugadores", jugadores);
+        res.sendRedirect(res.encodeRedirectURL("TablaVotos.jsp"));
+    }
+
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        String resetear = req.getParameter("B3");
-        if (resetear != null && resetear.equals("Poner votos a cero")) {
-            reiniciarVotacion(res);
-        } else {
-            votar(req, res);
+        String acción = req.getParameter("B1");
+        switch(acción) {
+            case "Poner votos a cero": 
+                reiniciarVotacion(res);
+                break;
+            case "Ver votos":
+                mostrarVotos(req, res);
+                break;
+            default:
+                votar(req, res);
         }
     }
 
