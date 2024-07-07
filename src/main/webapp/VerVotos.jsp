@@ -1,3 +1,5 @@
+<%@ page import="java.util.List" %>
+<%@ page import="model.Jugador" %>
 <!DOCTYPE html>
 <html lang="es">
     <head>
