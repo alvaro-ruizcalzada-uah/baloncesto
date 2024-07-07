@@ -27,7 +27,7 @@ public class ModeloDatos {
 
         } catch (Exception e) {
             logger.error("No se ha podido conectar");
-            logger.error("El error es: " + e.getMessage());
+            logger.error("El error es: ", e.getMessage());
         }
     }
 
@@ -36,7 +36,7 @@ public class ModeloDatos {
         String cad;
         try {
             set = con.createStatement();
-            rs = set.executeQuery("SELECT * FROM Jugadores");
+            rs = set.executeQuery("SELECT id, Nombre FROM Jugadores");
             while (rs.next()) {
                 cad = rs.getString("Nombre");
                 cad = cad.trim();
@@ -48,7 +48,7 @@ public class ModeloDatos {
             set.close();
         } catch (Exception e) {
             logger.error("No lee de la tabla");
-            logger.error("El error es: " + e.getMessage());
+            logger.error("El error es: ", e.getMessage());
         }
         return (existe);
     }
@@ -61,7 +61,7 @@ public class ModeloDatos {
             set.close();
         } catch (Exception e) {
             logger.error("No modifica la tabla");
-            logger.error("El error es: " + e.getMessage());
+            logger.error("El error es: ", e.getMessage());
         }
     }
 
@@ -73,7 +73,7 @@ public class ModeloDatos {
             set.close();
         } catch (Exception e) {
             logger.error("No inserta en la tabla");
-            logger.error("El error es: " + e.getMessage());
+            logger.error("El error es: ", e.getMessage());
         }
     }
 
@@ -85,7 +85,7 @@ public class ModeloDatos {
             set.close();
         } catch (Exception e) {
             logger.error("No modifica la tabla");
-            logger.error("El error es: " + e.getMessage());
+            logger.error("El error es: ", e.getMessage());
         }
     }
 
@@ -93,7 +93,7 @@ public class ModeloDatos {
         try {
             con.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
         }
     }
 
