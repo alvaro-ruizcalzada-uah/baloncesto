@@ -11,6 +11,7 @@
         <table>
             <thead>
                 <tr>
+                    <th>Id</th>
                     <th>Nombre</th>
                     <th>Votos</th>
                 </tr>
