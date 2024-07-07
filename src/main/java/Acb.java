@@ -1,5 +1,6 @@
 
 import java.io.*;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 
@@ -7,6 +8,7 @@ public class Acb extends HttpServlet {
 
     private ModeloDatos bd;
 
+    @Override
     public void init(ServletConfig cfg) throws ServletException {
         bd = new ModeloDatos();
         bd.abrirConexion();
@@ -33,6 +35,7 @@ public class Acb extends HttpServlet {
         res.sendRedirect(res.encodeRedirectURL("TablaVotos.jsp"));
     }
 
+    @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String resetear = req.getParameter("B3");
         if (resetear != null && resetear.equals("Poner votos a cero")) {
@@ -42,6 +45,7 @@ public class Acb extends HttpServlet {
         }
     }
 
+    @Override
     public void destroy() {
         bd.cerrarConexion();
         super.destroy();

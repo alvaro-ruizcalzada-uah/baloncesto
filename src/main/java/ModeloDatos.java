@@ -1,6 +1,10 @@
 import java.sql.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ModeloDatos {
+
+    private static final Logger logger = LoggerFactory.getLogger(ModeloDatos.class);
 
     private Connection con;
     private Statement set;
@@ -22,9 +26,8 @@ public class ModeloDatos {
             con = DriverManager.getConnection(url, dbUser, dbPass);
 
         } catch (Exception e) {
-            // No se ha conectado
-            System.out.println("No se ha podido conectar");
-            System.out.println("El error es: " + e.getMessage());
+            logger.error("No se ha podido conectar");
+            logger.error("El error es: " + e.getMessage());
         }
     }
 
@@ -44,9 +47,8 @@ public class ModeloDatos {
             rs.close();
             set.close();
         } catch (Exception e) {
-            // No lee de la tabla
-            System.out.println("No lee de la tabla");
-            System.out.println("El error es: " + e.getMessage());
+            logger.error("No lee de la tabla");
+            logger.error("El error es: " + e.getMessage());
         }
         return (existe);
     }
@@ -58,9 +60,8 @@ public class ModeloDatos {
             rs.close();
             set.close();
         } catch (Exception e) {
-            // No modifica la tabla
-            System.out.println("No modifica la tabla");
-            System.out.println("El error es: " + e.getMessage());
+            logger.error("No modifica la tabla");
+            logger.error("El error es: " + e.getMessage());
         }
     }
 
@@ -71,9 +72,8 @@ public class ModeloDatos {
             rs.close();
             set.close();
         } catch (Exception e) {
-            // No inserta en la tabla
-            System.out.println("No inserta en la tabla");
-            System.out.println("El error es: " + e.getMessage());
+            logger.error("No inserta en la tabla");
+            logger.error("El error es: " + e.getMessage());
         }
     }
 
@@ -84,9 +84,8 @@ public class ModeloDatos {
             rs.close();
             set.close();
         } catch (Exception e) {
-            // No modifica la tabla
-            System.out.println("No modifica la tabla");
-            System.out.println("El error es: " + e.getMessage());
+            logger.error("No modifica la tabla");
+            logger.error("El error es: " + e.getMessage());
         }
     }
 

@@ -1,8 +1,15 @@
 body {
     color: white;
     background-color: darkblue;
+    font-size: 10;
 }
 .resultado {
     color: yellow;
     background-color: darkred;
+}
+.alineacion-izquierda {
+    text-align: left;
+}
+.alineacion-centro {
+    text-align: center;
 }
