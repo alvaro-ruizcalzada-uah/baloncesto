@@ -14,12 +14,14 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach items="${jugadores}" var="jugador">
+                <% List<Jugador> jugadores = (List<Jugador>) session.getAttribute("jugadores"); %>
+                <% for (Jugador jugador : jugadores) { %>
                     <tr>
-                        <td>${jugador.nombre}</td>
-                        <td>${jugador.votos}</td>
+                        <td><%= jugador.getId() %></td>
+                        <td><%= jugador.getNombre() %></td>
+                        <td><%= jugador.getVotos() %></td>
                     </tr>
-                </c:forEach>
+                <% } %>
             </tbody>
         </table>
         <br>
